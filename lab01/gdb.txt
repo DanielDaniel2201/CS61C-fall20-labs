@@ -1,0 +1,9 @@
+1. set args [arguments]
+2. b [file:]function        set breakpoint at function [in file]
+3. n (step over function call)
+4. s (step into function call)
+5. c (continue running the program)
+6. print [expression]
+7. display [expression]
+8. info locals
+9. quit
