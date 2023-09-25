@@ -77,7 +77,13 @@ main:
 # Think: why might having a1 be useful?
 f:
     # YOUR CODE GOES HERE!
-
+    li t0, 12           # offset
+    slli t1, a0, 2      # t1 = a0 * 4
+    add t2, t0, t1      # dynamic offset t2 = 12 + a0 * 4
+    mv t3, a1           # dynamic pointer t3 initiated as a1, pointer to the output array
+    add t3, t3, t2      # t3 += t2
+    lw a0, 0(t3)        # load the specified output int
+    
     jr ra               # Always remember to jr ra after your function!
 
 print_int:
