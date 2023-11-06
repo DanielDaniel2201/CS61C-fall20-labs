@@ -1,24 +1,25 @@
 Scenario 1
-    1.
-    2.
-    3.
+    1. step size, cache size
+    2. 0.0
+    3. step size, 0
 
 Scenario 2
-    1.
-    2.
-    3.
+    1. 16
+    2. MHHH
+    3. 1.0
 
 Scenario 3
-    1.
-    2.
-    3.
-    4.
-    5.
+    1. 0.50, 0.00, 0.33
+    2. 32, 16
+    3. 16
+    4. Rep Count
+    5. =,=,+,=
 
 --- lines below are ignored by the AG ---
 
-Checkoff Question 1:
-Checkoff Question 2:
-Checkoff Question 3:
-Checkoff Question 4:
-Checkoff Question 5:
+Checkoff Question 1: The hit rate will stay 0.0 because step size is 32 bytes, which exactly is the entire cache size. So there is always a compulsory miss when accessing the requested data
+Checkoff Question 2: step size can be 0 or 1 to increase the hit rate
+Checkoff Question 3: 1. Such repeating hit/miss pattern results from that block size can accommodate 4 integers, out of which 2 are of our interest. Also, cache size and array size are the same so no Overriding block content. So for every block there is one miss (read miss, 4 consecutive integers are loaded onto cache) and 3 hits (write, hit, write). 2. Since shorted repeated pattern inclued 1 miss and 3 hits, the hit rate is 0.75.
+Checkoff Question 4: Because the cache size is as large as the array size, there is no overriding the content of blocks.
+Checkoff Question 5: Fill in the array elements chunk-wise (by chunk I mean a number of elements that can fit in the small cache exactly), then apply all functions on them. With one chunk done, repeat by filling the next chunk of elements.
+Checkoff Question 6: Because the data once loaded into L2 cache remain unchanged after an inner loop
