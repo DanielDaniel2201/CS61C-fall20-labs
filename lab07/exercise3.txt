@@ -1,20 +1,23 @@
+test data source:
+https://github.com/PKUFlyingPig/CS61C-labs/blob/master/lab07_caches/answers.txt
+
 --- not autograded ---
 
 Part 1
-    blocksize = 20, n = 100: 
-    blocksize = 20, n = 1000: 
-    blocksize = 20, n = 2000: 
-    blocksize = 20, n = 5000: 
-    blocksize = 20, n = 10000: 
+    blocksize = 20, n = 100: 0.005 ms vs 0.024 ms
+    blocksize = 20, n = 1000: 2.541 ms vs 2.708 ms
+    blocksize = 20, n = 2000: 21.099 ms vs 7.907 ms
+    blocksize = 20, n = 5000: 187.813 ms vs 47.597 ms
+    blocksize = 20, n = 10000: 978.996 ms vs 276.049 ms
 
-    Checkoff Question 1:
-    Checkoff Question 2:
+    Checkoff Question 1: 2000
+    Checkoff Question 2: higher degree of locality
 
 Part 2
-    blocksize = 50, n = 10000:
-    blocksize = 100, n = 10000:
-    blocksize = 500, n = 10000:
-    blocksize = 1000, n = 10000:
-    blocksize = 5000, n = 10000:
+    blocksize = 50, n = 10000: 1006.71 ms vs 184.919 ms
+    blocksize = 100, n = 10000: 1112.1 ms vs 166.499 ms
+    blocksize = 500, n = 10000: 1138.74 ms vs 152.292 ms
+    blocksize = 1000, n = 10000: 1039.38 ms vs 215.86 ms
+    blocksize = 5000, n = 10000: 1173.96 ms vs 829.044 ms
 
-    Checkoff Question 3:
+    Checkoff Question 3: It decreases and increased approaching naive transpose performance
