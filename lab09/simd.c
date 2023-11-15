@@ -47,15 +47,31 @@ long long int sum_unrolled(int vals[NUM_ELEMS]) {
 
 long long int sum_simd(int vals[NUM_ELEMS]) {
 	clock_t start = clock();
-	__m128i _127 = _mm_set1_epi32(127);		// This is a vector with 127s in it... Why might you need this?
+	__m128i _127 = _mm_set1_epi32(127);		// This is a vector with 127s in it... Why might you need this? A: use as condition in if statement
 	long long int result = 0;				   // This is where you should put your final result!
 	/* DO NOT DO NOT DO NOT DO NOT WRITE ANYTHING ABOVE THIS LINE. */
 	
 	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
 		/* YOUR CODE GOES HERE */
-
+		__m128i sum_vec = _mm_setzero_si128();	// sum vector initialized as a zero vector
+		for (unsigned int i = 0; i < NUM_ELEMS / 4 * 4; i += 4) {
+			__m128i* vec_ptr = (__m128i *)(vals + i);	// cast array pointer to an __m128i pointer
+			__m128i curr_vec = _mm_loadu_si128(vec_ptr);	// 128-bit vector stored at vec_ptr
+			__m128i condt_vec = _mm_cmpgt_epi32(curr_vec, _127);	// condition vector that indicates which element is valid or not
+			__m128i valid_vec = _mm_and_si128(curr_vec, condt_vec);	// valid vector containing the only valid elements
+			sum_vec = _mm_add_epi32(sum_vec, valid_vec);	// update sum vector
+		}
+		unsigned int results[4];
+		_mm_storeu_si128((__m128i*)results, sum_vec);
+		for (unsigned int i = 0; i < 4; i++) {
+			result += results[i];
+		}
 		/* You'll need a tail case. */
-
+		for (unsigned int i = NUM_ELEMS / 4 * 4; i < NUM_ELEMS; i++) {
+			if (vals[i] >= 128) {
+				result += vals[i];
+			}
+		}
 	}
 	clock_t end = clock();
 	printf("Time taken: %Lf s\n", (long double)(end - start) / CLOCKS_PER_SEC);
@@ -69,7 +85,43 @@ long long int sum_simd_unrolled(int vals[NUM_ELEMS]) {
 	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
 		/* COPY AND PASTE YOUR sum_simd() HERE */
 		/* MODIFY IT BY UNROLLING IT */
+		__m128i sum_vec = _mm_setzero_si128();	// sum vector initialized as a zero vector
+		for (unsigned int i = 0; i < NUM_ELEMS / 16 * 16; i += 16) {
+			__m128i* vec_ptr = (__m128i *)(vals + i);	// cast array pointer to an __m128i pointer
+			__m128i curr_vec = _mm_loadu_si128(vec_ptr);	// 128-bit vector stored at vec_ptr
+			__m128i condt_vec = _mm_cmpgt_epi32(curr_vec, _127);	// condition vector that indicates which element is valid or not
+			__m128i valid_vec = _mm_and_si128(curr_vec, condt_vec);	// valid vector containing the only valid elements
+			sum_vec = _mm_add_epi32(sum_vec, valid_vec);	// update sum vector
 
+			vec_ptr = (__m128i *)(vals + i + 4);
+			curr_vec = _mm_loadu_si128(vec_ptr);
+			condt_vec = _mm_cmpgt_epi32(curr_vec, _127);
+			valid_vec = _mm_and_si128(curr_vec, condt_vec);
+			sum_vec = _mm_add_epi32(sum_vec, valid_vec);
+
+			vec_ptr = (__m128i *)(vals + i + 8);
+			curr_vec = _mm_loadu_si128(vec_ptr);
+			condt_vec = _mm_cmpgt_epi32(curr_vec, _127);
+			valid_vec = _mm_and_si128(curr_vec, condt_vec);
+			sum_vec = _mm_add_epi32(sum_vec, valid_vec);
+
+			vec_ptr = (__m128i *)(vals + i + 12);
+			curr_vec = _mm_loadu_si128(vec_ptr);
+			condt_vec = _mm_cmpgt_epi32(curr_vec, _127);
+			valid_vec = _mm_and_si128(curr_vec, condt_vec);
+			sum_vec = _mm_add_epi32(sum_vec, valid_vec);
+		}
+		unsigned int results[4];
+		_mm_storeu_si128((__m128i*)results, sum_vec);
+		for (unsigned int i = 0; i < 4; i++) {
+			result += results[i];
+		}
+		/* You'll need a tail case. */
+		for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS; i++) {
+			if (vals[i] >= 128) {
+				result += vals[i];
+			}
+		}
 		/* You'll need 1 or maybe 2 tail cases here. */
 
 	}
