@@ -1,19 +1,19 @@
 Exercise 1:
-    1.
-    2.
-    3.
+    1. 32
+    2. 1, 9, 0, 9
+    3. no, yes
 
 Exercise 2:
-    1.
+    1. 00, 20, 40, 60, 80, A0, C0, E0, 00, 20
 
 Exercise 3:
-    1.
+    1. Page Size
 
 --- lines below are ignored by the AG ---
 
 Exercise 1 Checkoff Questions:
-    1.
-    2.
+    1. Once given the virtual address, it's splitted into two fields: virtual page number and offset. With virtual page number obtained, the TLB is searched for it, which on the very first access would result in a TLB miss, thus going on searching page table, which would result in a page fault since nothing has been placed there before. The physical memory is then searched to find an appropriate space to place a page (to be brought from the disk), which generates a physical page number. Combining the physical page number and the offset obtained before we get a physical address to map the virtual address to.
+    2. Because physical memory has 4 pages, which needs 2 bits to locate one, and virtual memory has 8 pages, which needs 3 bits to locate one.
 
 Exercise 4 Checkoff Question:
-    1.
+    1. Because we are constantly switching between multiple processes and each of the switches would eliminate all the page table and TLB contents of the last process.
